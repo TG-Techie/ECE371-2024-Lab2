@@ -9,5 +9,6 @@
         "/Users/tg-techie/.vscode/extensions/joedevivo.vscode-circuitpython-0.2.0-darwin-arm64/stubs",
         "/Users/tg-techie/Library/Application Support/Code/User/globalStorage/joedevivo.vscode-circuitpython/bundle/20241024/adafruit-circuitpython-bundle-py-20241024/lib"
     ],
-    "circuitpython.board.version": null
+    "circuitpython.board.version": null,
+    "editor.formatOnSave": true
 }
