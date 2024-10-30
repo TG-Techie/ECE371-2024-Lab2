@@ -1,4 +1,6 @@
 .DS_Store
+penguin_decrypted.jpg
+penguin_encrypted.bin
 
 # ---- BELOW THESE LINES IS GITHUB'S Python .gitginore FILE ----
 # git ignore from https://github.com/github/gitignore/blob/76739a38b56907118c5a880d63250c99d5690a5a/Python.gitignore
