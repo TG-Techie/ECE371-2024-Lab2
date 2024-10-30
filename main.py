@@ -5,7 +5,7 @@ import struct
 
 
 SIZE = 1024
-des_key = "secret_k"
+# des_key = "secret_k"
 
 
 # first generate the key pair

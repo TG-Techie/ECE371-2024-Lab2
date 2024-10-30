@@ -1,8 +1,12 @@
 import random
 
+from typing import Tuple
+
+KeyPair = Tuple[int, int]
+
 
 # function for finding gcd of two numbers using euclidean algorithm
-def gcd(a, b):
+def gcd(a: int, b: int) -> int:
     assert 0 != a
     assert 0 != b
 
@@ -12,9 +16,8 @@ def gcd(a, b):
 
 
 # uses extened euclidean algorithm to get the d value
-def get_d(e, z):
-    # HAVEDONE
-    ###################################your code goes here#####################################
+def get_d(e: int, z: int) -> int:
+    # ---------------- OUR CODE CHANGES HERE ----------------
 
     # use the euclidian algorithm where
     #  a*x + b*y = gcd(a,b)
@@ -26,12 +29,16 @@ def get_d(e, z):
     a = e
     b = z
 
+    possible_outputs = set()
+
     while b != 0:
         quotient = a // b
         (a, b) = (b, a % b)
 
         (x, x_p) = (x_p, x - quotient * x_p)
         (y, y_p) = (y_p, y - quotient * y_p)
+
+        possible_outputs.add(x % z)
 
     return x % z
 
@@ -58,17 +65,18 @@ def are_relatively_prime(a: int, b: int) -> bool:
     return 1 == gcd(a, b)
 
 
-def generate_keypair(p, q):
+def generate_keypair(p: int, q: int) -> Tuple[KeyPair, KeyPair]:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
         raise ValueError("p and q cannot be equal")
-    # HAVEDONE
-    ###################################your code goes here#####################################
+
+    # ---------------- OUR CODE CHANGES HERE ----------------
 
     n = p * q
     z = (p - 1) * (q - 1)
 
+    # NOTE: this may pick small prime values... which would be a problem in real world applications
     for maybe_e in range(n - 1, 0 - 1, -1):
         if not are_relatively_prime(maybe_e, z):
             continue
@@ -77,33 +85,40 @@ def generate_keypair(p, q):
     else:
         raise ValueError(f"could not find an e < n where {n=}")
 
+    assert e not in {0, 1, 2}
+
     d = get_d(e, z)
 
-    assert d != n
-    assert e != n
+    assert d < n
+    assert e < n
     assert d != e
 
     return ((e, n), (d, n))
 
 
-def encrypt(pk, plaintext):
-    # HAVEDONE
-    ###################################your code goes here#####################################
+def encrypt(pk: KeyPair, plaintext: str) -> int:
+    assert 1 == len(plaintext)
+    ################################### OUR CODE CHANGES HERE #####################################
     # plaintext is a single character
     # cipher is a decimal number which is the encrypted version of plaintext
     # the pow function is much faster in calculating power compared to the ** symbol !!!
-    e, n = pk
-    asciiVal = ord(plaintext)
-    cipher = pow(asciiVal, e) % n
+    (e, n) = pk
+
+    asciiVal: int = ord(plaintext)
+    assert 0 <= asciiVal <= 255
+
+    cipher = pow(base=asciiVal, exp=e, mod=n)
+
     return cipher
 
 
-def decrypt(pk, ciphertext):
-    # HAVEDONE
-    ###################################your code goes here#####################################
+def decrypt(pk: KeyPair, ciphertext):
+    ################################### OUR CODE CHANGES HERE #####################################
     # ciphertext is a single decimal number
     # the returned value is a character that is the decryption of ciphertext
+
     d, n = pk
-    decryptVal = pow(ciphertext, d) % n
+    decryptVal = pow(base=ciphertext, exp=d, mod=n)
+
     plain = chr(decryptVal)
     return "".join(plain)
