@@ -239,8 +239,13 @@ class des():
         #for each 6 bit subblock you need to apply the corresponding s box (using the compute_s_box function) and save the result in result value
         # result is a list of integer values 1 or 0
         #the following code is wrong and needs to be replaced
-        s=math.floor(random.random()*2)
-        result = [s, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        result = []
+        
+        for i, block in enumerate(subblocks):
+            f_sbox = self.compute_s_box(block, i)
+            for bit in f_sbox:
+                result.append(int(bit))
+
         return result
                 
     def permut(self, block, table):#Permut the given block using the given table (so generic method)
@@ -290,5 +295,8 @@ class des():
         # the input block is a list of integers for 1 or 0  e.g. block=[1,1,0,0,0,0,0]
         #return a string of 4 bits e.g. '1111' as the output, the binvalue() function is helpful
         bin='1111'
+        row = (block[5] * 2) + (block[0] * 1)
+        col = (block[4] * 8) + (block[3] * 4) + (block[2] * 2) + (block[1] * 1)
+        bin = binvalue(S_BOX[round][row][col], 4)
         return bin
 
