@@ -131,6 +131,6 @@ print()
 print()
 print()
 
-print("tested all keys, check the output/ directory")
+print("tested p & q values keys, check the output/ directory")
 
 print()
