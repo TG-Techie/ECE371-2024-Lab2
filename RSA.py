@@ -1,12 +1,9 @@
 import random
 
-from typing import Tuple
-
-KeyPair = Tuple[int, int]
-
 
 # function for finding gcd of two numbers using euclidean algorithm
-def gcd(a: int, b: int) -> int:
+def gcd(a, b):
+    # def gcd(a: int, b: int) -> int:
     assert 0 != a
     assert 0 != b
 
@@ -16,7 +13,8 @@ def gcd(a: int, b: int) -> int:
 
 
 # uses extened euclidean algorithm to get the d value
-def get_d(e: int, z: int) -> int:
+def get_d(e, z):
+    # def get_d(e: int, z: int) -> int:
     # ---------------- OUR CODE CHANGES HERE ----------------
 
     # use the euclidian algorithm where
@@ -61,11 +59,14 @@ def is_prime(num):
         return False
 
 
-def are_relatively_prime(a: int, b: int) -> bool:
+def are_relatively_prime(a, b):
+    # def are_relatively_prime(a: int, b: int) -> bool:
     return 1 == gcd(a, b)
 
 
-def generate_keypair(p: int, q: int) -> Tuple[KeyPair, KeyPair]:
+def generate_keypair(p, q):
+    # def generate_keypair(p: int, q: int) -> Tuple[KeyPair, KeyPair]:
+
     if not (is_prime(p) and is_prime(q)):
         raise ValueError("Both numbers must be prime.")
     elif p == q:
@@ -96,7 +97,9 @@ def generate_keypair(p: int, q: int) -> Tuple[KeyPair, KeyPair]:
     return ((e, n), (d, n))
 
 
-def encrypt(pk: KeyPair, plaintext: str) -> int:
+def encrypt(pk, plaintext):
+    # def encrypt(pk: KeyPair, plaintext: str) -> int:
+
     assert 1 == len(plaintext)
     ################################### OUR CODE CHANGES HERE #####################################
     # plaintext is a single character
@@ -104,7 +107,7 @@ def encrypt(pk: KeyPair, plaintext: str) -> int:
     # the pow function is much faster in calculating power compared to the ** symbol !!!
     (e, n) = pk
 
-    asciiVal: int = ord(plaintext)
+    asciiVal = ord(plaintext)
     assert 0 <= asciiVal <= 255
 
     cipher = pow(base=asciiVal, exp=e, mod=n)
@@ -112,7 +115,8 @@ def encrypt(pk: KeyPair, plaintext: str) -> int:
     return cipher
 
 
-def decrypt(pk: KeyPair, ciphertext):
+def decrypt(pk, ciphertext):
+    # def decrypt(pk: KeyPair, ciphertext):
     ################################### OUR CODE CHANGES HERE #####################################
     # ciphertext is a single decimal number
     # the returned value is a character that is the decryption of ciphertext
