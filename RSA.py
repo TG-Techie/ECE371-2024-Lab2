@@ -110,7 +110,7 @@ def encrypt(pk, plaintext):
     asciiVal = ord(plaintext)
     assert 0 <= asciiVal <= 255
 
-    cipher = pow(base=asciiVal, exp=e, mod=n)
+    cipher = pow(asciiVal, e, n)
 
     return cipher
 
@@ -122,7 +122,7 @@ def decrypt(pk, ciphertext):
     # the returned value is a character that is the decryption of ciphertext
 
     d, n = pk
-    decryptVal = pow(base=ciphertext, exp=d, mod=n)
+    decryptVal = pow(ciphertext, d, n)
 
     plain = chr(decryptVal)
     return "".join(plain)
