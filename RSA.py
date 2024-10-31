@@ -83,7 +83,7 @@ def generate_keypair(p: int, q: int) -> Tuple[KeyPair, KeyPair]:
         e = maybe_e
         break
     else:
-        raise ValueError(f"could not find an e < n where {n=}")
+        raise ValueError("could not find an e < n where" + n)
 
     assert e not in {0, 1, 2}
 

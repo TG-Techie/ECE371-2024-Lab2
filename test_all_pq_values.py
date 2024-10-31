@@ -65,8 +65,8 @@ def main(goup_num=None, p=1297273, q=1297651, *, des_key=None):
     assert isinstance(des_key, str)
     assert 8 == len(des_key)
 
-    print(f"\n\n\n ---- Running Group {group_num} ----")
-    print(f"{des_key=}")
+    print("\n\n\n ---- Running Group ", group_num, " ----")
+    print("des_key=", des_key)
 
     # encrypt the DES key
     print("encrypting DES KEY with RSA")
@@ -85,7 +85,7 @@ def main(goup_num=None, p=1297273, q=1297651, *, des_key=None):
     r_byte = bytearray()
     for x in r:
         r_byte += bytes([ord(x)])
-    file = open(f"output/group_{goup_num}_penguin_encrypted.bin", "wb+")
+    file = open("output/group_" + goup_num + "penguin_encrypted.bin", "wb+")
     file.write(r_byte)
     file.close()
 
@@ -113,7 +113,7 @@ def main(goup_num=None, p=1297273, q=1297651, *, des_key=None):
         rr_byte += bytes([ord(x)])
 
     # write to file to make sure it is okay
-    file2 = open(f"output/group_{goup_num}_penguin_decrypted.jpg", "wb")
+    file2 = open("output/group_" + goup_num + "_penguin_decrypted.jpg", "wb")
     file2.write(bytes(rr_byte))
     file2.close()
     print("decypting image completed")
